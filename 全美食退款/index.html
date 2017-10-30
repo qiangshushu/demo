@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" charset="utf-8">
+    </head>
+
+    <body>
+        <script type="text/javascript">
+            var host = '';
+            var host = 'dev';
+            var host = 'ts';
+
+            $(function() {
+                function getMoneyList() {
+                    return new Promise(function(resolve, reject) {
+                        $.get(host + '.money.text').then(function(res) {
+                            //console.log('money ok...');
+                            resolve(res.split('\r\n'));
+                        });
+                    });
+                }
+
+                function getOrderList() {
+                    return new Promise(function(resolve, reject) {
+                        $.get(host + '.orderno.text').then(function(res) {
+                            //console.log('orderno ok...');
+                            resolve(res.split('\r\n'));
+                        });
+                    });
+                }
+
+                /*getMoneyList().then(function() {
+                    return getOrderList();
+                }).then(function() {
+                    console.log('finished');
+                });*/
+                Promise.all([getMoneyList(), getOrderList()]).then(function(res) {
+                    var [a, b] = res;
+                    var r1 = [],
+                        r2 = [],
+                        r3 = [],
+                        r4 = [];
+                    var leftTotal = 0;
+                    //https: //app-ts.qms888.com/api-customer/payment/applyRefund?orderNo=217101718115637779886&refundMoney=2.40&refundReason=客户要求
+                    var ajaxs = [];
+                    console.log('pending...', a.length);
+                    a.forEach(function(item, index) {
+                        ajaxs.push($.ajax({
+                            url: 'https://app-' + host + '.qms888.com/api-customer/payment/applyRefund',
+                            data: {
+                                orderNo: b[index],
+                                refundMoney: item,
+                                refundReason: '退回测试金额'
+                            },
+                            success: function(e) {
+                                if(e.header.statusCode == 1) {
+                                    r1.push(b[index]);
+                                } else {
+                                    if(e.header.errorMsg.errorDesc != '订单已全额退款') {
+                                        r2.push(b[index] + ':' + e.header.errorMsg.errorDesc);
+                                        leftTotal += +item;
+                                    } else {
+                                        r4.push(b[index]);
+                                    }
+                                }
+                            },
+                            error: function(e) {
+                                r3.push(b[index] + ':' + e);
+                            }
+                        }));
+                    });
+                    Promise.all(ajaxs).then(function() {
+                        console.log('result...');
+                        console.log('退款成功:' + r1.length, r1);
+                        console.log('退款失败:' + r2.length, r2);
+                        console.log('已经退过的:' + r4.length, r4);
+                        console.log('接口异常:' + r3.length, r3);
+                        console.log('剩余总退款金额', leftTotal);
+                    });
+                });
+
+            });
+        </script>
+    </body>
+
+</html>

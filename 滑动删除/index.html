@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="format-detection" content="telephone=no" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<meta name="apple-mobile-web-app-capable" content="no" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta http-equiv="Cache-Control" content="must-revalidate,no-cache" />
+<script type="text/javascript" src="../lib/jquery.js"></script>
+<link type="text/css" rel="stylesheet" href="../lib/common.css">
+<script>
+	$(function() {
+		function prevent_default(e) {
+			e.preventDefault();
+		}
+
+		function disable_scroll() {
+			$(document).on('touchmove', prevent_default);
+		}
+
+		function enable_scroll() {
+			$(document).unbind('touchmove', prevent_default)
+		}
+	
+		var x = 0;
+		$('.list .name').on('touchstart', function(e) {
+			$('.mask').removeClass('hidden');
+			x = e.originalEvent.targetTouches[0].pageX;
+			$(e.currentTarget).addClass('open');
+		});
+		$('.list .name').on('touchmove', function(e) {
+			var left = e.originalEvent.targetTouches[0].pageX - x;
+			left = Math.min(Math.max(-100, left), 0);
+			$(e.currentTarget).css('left', left);
+			disable_scroll();
+		});
+		$('.list .name').on('touchend', function(e) {
+			var left = parseInt($(this).css('left'));
+			var new_left;
+            if (left < -35) {
+                new_left = -100
+            } else {
+                new_left = 0
+            }
+			
+			$(e.currentTarget).stop(true).animate({left: new_left}, 300, function() {
+				if (new_left == -100) {
+					$(e.currentTarget).next('.delete').css('z-index', 4);
+				} else {
+					$('.mask').addClass('hidden');
+				}
+			})
+			enable_scroll();
+		});
+		$('.mask').on('touchstart', function() {
+			$('.name.open').stop(true).animate({left: 0}, 300, function() {
+				$('.name.open').removeClass('open');
+			});
+			$('.delete').css('z-index', 1);
+		});
+		$('.mask').on('touchend', function() {
+			setTimeout(function() {
+				$('.mask').addClass('hidden');
+			}, 300);
+		});
+		$('.delete').on('touchend', function() {
+			$(this).parent('li').slideUp(200);
+		});
+	});
+</script>
+<style>
+	li {
+		position: relative;
+		border-bottom: 1px solid #ddd;
+	}
+	
+	.name {
+		width: 100%;
+		display: block;
+		height: 40px;
+		line-height: 40px;
+		position: relative;
+		z-index: 2;
+		background: #fff;
+	}
+
+	.delete {
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: 100px;
+		bottom: 0;
+		color: #fff;
+		background: red;
+		text-align: center;
+		line-height: 42px;
+		z-index: 1;
+	}
+	
+	.mask {
+		position: fixed;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		z-index: 3;
+		background: rgba(0,0,0,0);
+	}
+	
+	.hidden {
+		display: none;
+	}
+</style>
+</head>
+<body>
+<div class="mask hidden"></div>
+<ul class="list">
+	<li>
+		<a class="name">111</a>
+		<a class="delete">删除</a>
+	</li>
+	<li>
+		<a class="name">222</a>
+		<a class="delete">删除</a>
+	</li>
+	<li>
+		<a class="name">333</a>
+		<a class="delete">删除</a>
+	</li>
+	<li>
+		<a class="name">111</a>
+		<a class="delete">删除</a>
+	</li>
+	<li>
+		<a class="name">222</a>
+		<a class="delete">删除</a>
+	</li>
+	<li>
+		<a class="name">333</a>
+		<a class="delete">删除</a>
+	</li>
+	<li>
+		<a class="name">111</a>
+		<a class="delete">删除</a>
+	</li>
+	<li>
+		<a class="name">222</a>
+		<a class="delete">删除</a>
+	</li>
+	<li>
+		<a class="name">333</a>
+		<a class="delete">删除</a>
+	</li>
+	<li>
+		<a class="name">111</a>
+		<a class="delete">删除</a>
+	</li>
+	<li>
+		<a class="name">222</a>
+		<a class="delete">删除</a>
+	</li>
+	<li>
+		<a class="name">333</a>
+		<a class="delete">删除</a>
+	</li>
+	<li>
+		<a class="name">111</a>
+		<a class="delete">删除</a>
+	</li>
+	<li>
+		<a class="name">222</a>
+		<a class="delete">删除</a>
+	</li>
+	<li>
+		<a class="name">333</a>
+		<a class="delete">删除</a>
+	</li>
+	<li>
+		<a class="name">111</a>
+		<a class="delete">删除</a>
+	</li>
+	<li>
+		<a class="name">222</a>
+		<a class="delete">删除</a>
+	</li>
+	<li>
+		<a class="name">333</a>
+		<a class="delete">删除</a>
+	</li>
+</ul>
+</body>
+</html>

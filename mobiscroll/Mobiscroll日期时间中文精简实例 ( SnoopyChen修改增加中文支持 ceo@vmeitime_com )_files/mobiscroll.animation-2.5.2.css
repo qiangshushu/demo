@@ -1,0 +1,105 @@
+.dw-trans .dw-persp {
+	overflow: hidden; -webkit-perspective: 1000; perspective: 1000; -moz-perspective: 1000;
+}
+.dw-trans .dwwb {
+	-webkit-backface-visibility: hidden;
+}
+.dw-in {
+	animation-timing-function: ease-out; animation-duration: 350ms; -webkit-animation-timing-function: ease-out; -webkit-animation-duration: 350ms; -moz-animation-timing-function: ease-out; -moz-animation-duration: 350ms;
+}
+.dw-out {
+	animation-timing-function: ease-in; animation-duration: 350ms; -webkit-animation-timing-function: ease-in; -webkit-animation-duration: 350ms; -moz-animation-timing-function: ease-in; -moz-animation-duration: 350ms;
+}
+.dw-flip {
+	-webkit-backface-visibility: hidden; backface-visibility: hidden; transform: translateX(0); -webkit-transform: translateX(0); -moz-backface-visibility: hidden; -moz-transform: translateX(0);
+}
+.dw-swing {
+	-webkit-backface-visibility: hidden; backface-visibility: hidden; transform: translateX(0); -webkit-transform: translateX(0); -moz-backface-visibility: hidden; -moz-transform: translateX(0);
+}
+.dw-slidehorizontal {
+	-webkit-backface-visibility: hidden; backface-visibility: hidden; transform: translateX(0); -webkit-transform: translateX(0); -moz-backface-visibility: hidden; -moz-transform: translateX(0);
+}
+.dw-slidevertical {
+	-webkit-backface-visibility: hidden; backface-visibility: hidden; transform: translateX(0); -webkit-transform: translateX(0); -moz-backface-visibility: hidden; -moz-transform: translateX(0);
+}
+.dw-slidedown {
+	-webkit-backface-visibility: hidden; backface-visibility: hidden; transform: translateX(0); -webkit-transform: translateX(0); -moz-backface-visibility: hidden; -moz-transform: translateX(0);
+}
+.dw-slideup {
+	-webkit-backface-visibility: hidden; backface-visibility: hidden; transform: translateX(0); -webkit-transform: translateX(0); -moz-backface-visibility: hidden; -moz-transform: translateX(0);
+}
+.dw-fade {
+	-webkit-backface-visibility: hidden; backface-visibility: hidden; transform: translateX(0); -webkit-transform: translateX(0); -moz-backface-visibility: hidden; -moz-transform: translateX(0);
+}
+.dw-swing {
+	transform-origin: 0 0; -webkit-transform-origin: 0 0; -moz-transform-origin: 0 0;
+}
+.dw-slidehorizontal {
+	transform-origin: 0 0; -webkit-transform-origin: 0 0; -moz-transform-origin: 0 0;
+}
+.dw-slidevertical {
+	transform-origin: 0 0; -webkit-transform-origin: 0 0; -moz-transform-origin: 0 0;
+}
+.dw-slidedown {
+	transform-origin: 0 0; -webkit-transform-origin: 0 0; -moz-transform-origin: 0 0;
+}
+.dw-slideup {
+	transform-origin: 0 0; -webkit-transform-origin: 0 0; -moz-transform-origin: 0 0;
+}
+.dw-fade {
+	transform-origin: 0 0; -webkit-transform-origin: 0 0; -moz-transform-origin: 0 0;
+}
+.dw-flip {
+	transform-origin: 50% 50%; -webkit-transform-origin: 50% 50%; -moz-transform-origin: 50% 50%;
+}
+.dw-pop {
+	transform-origin: 50% 50%; -webkit-transform-origin: 50% 50%; -moz-transform-origin: 50% 50%;
+}
+.dw-in.dw-pop {
+	opacity: 1; transform: scale(1); -webkit-transform: scale(1); -moz-transform: scale(1); animation-name: dw-p-in; -webkit-animation-name: dw-p-in; -moz-animation-name: dw-p-in;
+}
+.dw-out.dw-pop {
+	opacity: 0; animation-name: dw-p-out; -webkit-animation-name: dw-p-out; -moz-animation-name: dw-p-out;
+}
+.dw-in.dw-flip {
+	opacity: 1; transform: scale(1); -webkit-transform: scale(1); -moz-transform: scale(1); animation-name: dw-fl-in; -webkit-animation-name: dw-fl-in; -moz-animation-name: dw-fl-in;
+}
+.dw-out.dw-flip {
+	opacity: 0; animation-name: dw-fl-out; -webkit-animation-name: dw-fl-out; -moz-animation-name: dw-fl-out;
+}
+.dw-in.dw-swing {
+	opacity: 1; transform: scale(1); -webkit-transform: scale(1); -moz-transform: scale(1); animation-name: dw-sw-in; -webkit-animation-name: dw-sw-in; -moz-animation-name: dw-sw-in;
+}
+.dw-out.dw-swing {
+	opacity: 0; animation-name: dw-sw-out; -webkit-animation-name: dw-sw-out; -moz-animation-name: dw-sw-out;
+}
+.dw-in.dw-slidehorizontal {
+	opacity: 1; transform: scale(1); -webkit-transform: scale(1); -moz-transform: scale(1); animation-name: dw-sh-in; -webkit-animation-name: dw-sh-in; -moz-animation-name: dw-sh-in;
+}
+.dw-out.dw-slidehorizontal {
+	opacity: 0; animation-name: dw-sh-out; -webkit-animation-name: dw-sh-out; -moz-animation-name: dw-sh-out;
+}
+.dw-in.dw-slidevertical {
+	opacity: 1; transform: scale(1); -webkit-transform: scale(1); -moz-transform: scale(1); animation-name: dw-dw-sv-in; -webkit-animation-name: dw-dw-sv-in; -moz-animation-name: dw-dw-sv-in;
+}
+.dw-out.dw-slidevertical {
+	opacity: 0; animation-name: dw-sv-out; -webkit-animation-name: dw-sv-out; -moz-animation-name: dw-sv-out;
+}
+.dw-in.dw-slidedown {
+	transform: scale(1); -webkit-transform: scale(1); -moz-transform: scale(1); animation-name: dw-sd-in; -webkit-animation-name: dw-sd-in; -moz-animation-name: dw-sd-in;
+}
+.dw-out.dw-slidedown {
+	animation-name: dw-sd-out; -webkit-animation-name: dw-sd-out; -moz-animation-name: dw-sd-out;
+}
+.dw-in.dw-slideup {
+	transform: scale(1); -webkit-transform: scale(1); -moz-transform: scale(1); animation-name: dw-su-in; -webkit-animation-name: dw-su-in; -moz-animation-name: dw-su-in;
+}
+.dw-out.dw-slideup {
+	animation-name: dw-su-out; -webkit-animation-name: dw-su-out; -moz-animation-name: dw-su-out;
+}
+.dw-in.dw-fade {
+	opacity: 1; animation-name: dw-f-in; -webkit-animation-name: dw-f-in; -moz-animation-name: dw-f-in;
+}
+.dw-out.dw-fade {
+	opacity: 0; animation-name: dw-f-out; -webkit-animation-name: dw-f-out; -moz-animation-name: dw-f-out;
+}

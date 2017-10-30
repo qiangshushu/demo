@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="format-detection" content="telephone=no" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<meta name="apple-mobile-web-app-capable" content="no" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta http-equiv="Cache-Control" content="must-revalidate,no-cache" />
+<script src="../lib/jquery.js"></script>
+<script>
+function myPrint(obj){
+    var newWindow=window.open("打印窗口","_blank");//打印窗口要换成页面的url
+    var docStr = obj.innerHTML;
+    newWindow.document.write(docStr);
+    newWindow.document.close();
+    newWindow.print();
+    //newWindow.close();
+}
+	$(function() {
+		function setMaxWidth(dom) {
+			var maxwidth = 0;
+			for (var i = 0; i < dom.length; i++) {
+				var currentWidth = $(dom[i]).width();
+				maxwidth = currentWidth > maxwidth ? currentWidth : maxwidth;
+			}
+			dom.width(maxwidth);
+		}
+		setMaxWidth($('.price'));
+		setMaxWidth($('.unitPrice'));
+	});
+</script>
+<style>
+body {
+	padding: 0;
+	margin: 0;
+	font-size: 12px;
+	line-height: 155%;
+}
+ul,li {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.left {
+	float: left;
+}
+.right {
+	float: right;
+}
+.center {
+	text-align: center;
+}
+.clearfix {
+	overflow: hidden;
+}
+.dashed {
+	border-bottom: 1px dashed;
+}
+.ptb-5 {
+	padding: 5px 0;
+}
+.header {
+	padding: 20px 0 10px 0;
+}
+.header .title {
+	font-size: 18px;
+}
+.header .phone {
+	font-size: 14px;
+}
+.body .detail span {
+	display: inline-block;
+}
+.body .detail .number {
+	min-width: 24px;
+	text-align: center;
+}
+.body .detail .unitPrice,.body .detail .price {
+	min-width: 45px;
+	text-align: right;
+}
+.body .detail .items span {
+	text-align: center;
+}
+.body .settle .total {
+	font-size: 14px;
+}
+.footer {
+	padding-bottom: 30px;
+}
+.sign {
+	height: 50px;
+	padding: 5px 0;
+}
+</style>
+</head>
+<body>
+<div id="print">
+	<div>
+		<div class="header center">
+			<span class="title">富腾美容养生会所</span><br />
+			<span class="phone">电话: 029-83858110</span>
+		</div>
+		<div class="body dashed">
+			<ul class="info dashed ptb-5">
+				<li>
+					<span>业务类型:</span><span>办卡</span>
+				</li>
+				<li>
+					<span>单号:</span><span>0000690</span>
+				</li>
+				<li>
+					<span>时间:</span><span>2016-09-16 15:30</span>
+				</li>
+			</ul>
+			<ul class="detail ptb-5">
+				<li class="items clearfix">
+					<div class="left">
+						<span class="name">商品名</span>
+					</div>
+					<div class="right">
+						<span class="number">数量</span>
+						<span class="unitPrice">单价</span>
+						<span class="price">金额</span>
+					</div>
+				</li>
+				<li class="clearfix">
+					<div class="left">
+						<span class="name">【会员金卡会员金卡会员金卡会员金卡会员金卡会员金卡】</span>
+					</div>
+					<div class="right">
+						<span class="number">1</span>
+						<span class="unitPrice">1980.00</span>
+						<span class="price">1980.00</span>
+					</div>
+				</li>
+				<li class="clearfix">
+					<div class="left">
+						<span class="name">【会员金卡会金卡会员金卡】</span>
+					</div>
+					<div class="right">
+						<span class="number">1</span>
+						<span class="unitPrice">1980.00</span>
+						<span class="price">19000.00</span>
+					</div>
+				</li>
+				<li class="clearfix">
+					<div class="left">
+						<span class="name">【金卡】</span>
+					</div>
+					<div class="right">
+						<span class="number">1</span>
+						<span class="unitPrice">1980.00</span>
+						<span class="price">19800.00</span>
+					</div>
+				</li>
+			</ul>
+			<ul class="settle">
+				<li class="clearfix">
+					<span class="left">优惠</span><span class="right">0.00</span>
+				</li>
+				<li class="clearfix">
+					<span class="left">应收</span><span class="right">1980.00</span>
+				</li>
+				<li class="clearfix">
+					<span class="left">欠款</span><span class="right">0.00</span>
+				</li>
+				<li class="total ptb-5 clearfix">
+					<span class="left">实收</span><span class="right">1980.00</span>
+				</li>
+				<li class="total ptb-5 clearfix">
+					<span class="left">耗卡金额</span><span class="right">1980.00</span>
+				</li>
+				<li class="total ptb-5 clearfix">
+					<span class="left">退卡金额</span><span class="right">1980.00</span>
+				</li>
+			</ul>
+		</div>
+		<div class="footer">
+			<div class="sign dashed">
+				顾客签字:
+			</div>
+			<div class="center notes ptb-5">
+				<span>请妥善保管好购物凭证</span><br />
+				<span>谢谢惠顾</span>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

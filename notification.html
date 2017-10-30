@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" charset="utf-8">
+    </head>
+
+    <body>
+        <script type="text/javascript">
+            Notification.requestPermission().then(function(permission) {
+                if(permission === 'granted') {
+                    console.log('用户允许通知');
+                } else if(permission === 'denied') {
+                    console.log('用户拒绝通知');
+                }
+            });
+
+            if(Notification.permission === 'granted') {
+                console.log('用户允许通知');
+                setInterval(function() {
+                    var n = new Notification('哈哈哈哈', {
+                        body: '你的朋友圈有3条新状态，快去查看吧',
+                        tag: 'linxin',
+                        icon: 'http://blog.gdfengshuo.com/images/avatar.jpg',
+                        requireInteraction: true,
+                        data: {
+                            url: 'https://b.qms888.com/foods-b-vue'
+                        }
+                    })
+
+                    setTimeout(function() {
+                        n.close();
+                    }, 1000);
+                    n.onclick = function() {
+                        window.open(n.data.url, ''); // 打开网址
+                        n.close(); // 并且关闭通知
+                    }
+                }, 1000);
+            } else if(Notification.permission === 'denied') {
+                console.log('用户拒绝通知');
+            } else {
+                console.log('用户还没选择，去向用户申请权限吧');
+            }
+        </script>
+    </body>
+
+</html>

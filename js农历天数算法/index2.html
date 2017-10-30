@@ -1,0 +1,341 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="format-detection" content="telephone=no" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<meta name="apple-mobile-web-app-capable" content="no" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta http-equiv="Cache-Control" content="must-revalidate,no-cache" />
+<script src="../lib/jquery.js"></script>
+<script src="../lib/iscroll.js"></script>
+<script src="calendar.js"></script>
+<style>
+html {
+	-ms-touch-action: none;
+}
+
+body,ul,li {
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+
+body {
+	font-size: 12px;
+	font-family: ubuntu, helvetica, arial;
+	overflow: hidden; /* this is important to prevent the whole page to bounce */
+}
+
+.hidden {
+	display: none;
+}
+
+.mask {
+	background: #000;
+    opacity: .7;
+	width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1001;
+}
+
+.plugin_wrapper {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    z-index: 1002;
+    background: #fff;
+}
+
+table {
+	width: 100%;
+    text-align: center;
+    overflow: hidden;
+	padding: 0 20px;
+}
+
+td {
+	position: relative;
+	width: 33%;
+}
+
+.header,.footer {
+	height: 36px;
+    line-height: 36px;
+}
+
+.header {
+	height: 36px;
+    line-height: 36px;
+    padding: 0;
+    border-bottom: 2px solid #31b6e7;
+    font-size: 18px;
+}
+
+.footer {
+	border-top: 1px solid #dbdbdb;
+}
+
+.footer .btn {
+	display: inline-block;
+    float: left;
+    width: 50%;
+	height: 36px;
+	line-height: 36px;
+	box-sizing: border-box;
+}
+
+.footer .c {
+	border-right: 1px solid #dbdbdb;	
+}
+
+.dwwol {
+	width: 40%;
+    height: 36px;
+    border-top: 2px solid #31b6e7;
+    border-bottom: 2px solid #31b6e7;
+    position: absolute;
+    top: 50%;
+    margin-top: -20px;
+    left: 50%;
+    margin-left: -20%;
+	z-index: -1;
+}
+
+.wrapper {
+    position: relative;
+    z-index: 1;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    height: 180px;
+}
+
+.scroller {
+	position: absolute;
+	z-index: 1;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	width: 100%;
+	-webkit-transform: translateZ(0);
+	-moz-transform: translateZ(0);
+	-ms-transform: translateZ(0);
+	-o-transform: translateZ(0);
+	transform: translateZ(0);
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	-webkit-text-size-adjust: none;
+	-moz-text-size-adjust: none;
+	-ms-text-size-adjust: none;
+	-o-text-size-adjust: none;
+	text-size-adjust: none;
+}
+
+.scroller ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	text-align: left;
+	padding-top: 72px;
+    padding-bottom: 72px;
+}
+
+.scroller li {
+	padding: 0 10px;
+	height: 36px;
+    line-height: 36px;
+	font-size: 14px;
+	text-align: center;
+}
+</style>
+</head>
+<body>
+<!-- <input type="input" id="birthday"/>
+<div class="mask"></div>
+<div class="wrapper">
+	<div id="header"></div>
+	<table>
+		<tr>
+			<td>
+				<div class="scroller">
+					<ul id="year"></ul>
+				</div>
+				<div class="dwwol"></div>
+			</td>
+			<td>
+				<div class="scroller">
+					<ul id="month"></ul>
+				</div>
+				<div class="dwwol"></div>
+			</td>
+			<td>
+				<div class="scroller">
+					<ul id="day"></ul>
+				</div>
+				<div class="dwwol"></div>
+			</td>
+		</tr>
+	</table>
+	<div class="footer">
+		<span class="btn c">取消</span>
+		<span class="btn s">确定</span>
+	</div>
+</div> -->
+<div class="mask"></div>
+<div class="plugin_wrapper">
+	<div class="header" id="today"></div>
+	<table>
+		<tr>
+			<td colspan="2">
+				<div id="wrapper1" class="wrapper">
+					<div class="scroller">
+						<ul id="year"></ul>
+					</div>
+					<div class="dwwol"></div>
+				</div>
+			</td>
+			<td colspan="2">
+				<div id="wrapper2" class="wrapper">
+					<div class="scroller">
+						<ul id="month"></ul>
+					</div>
+					<div class="dwwol"></div>
+				</div>
+			</td>
+			<td colspan="2">
+				<div id="wrapper3" class="wrapper">
+					<div class="scroller">
+						<ul id="day"></ul>
+					</div>
+					
+				</div>
+				<div class="dwwol"></div>
+			</td>
+		</tr>
+	</table>
+	<div class="footer">
+		<span class="btn c">取消</span>
+		<span class="btn s">确定</span>
+	</div>
+	<div>
+</div>
+<script>
+	$(function() {
+		var startY = 1900;
+		var endY = 2050;
+		
+		if (startY < 1900 || endY > 2100) {
+			alert('请选择1900-2100年之间的日期');
+			return;
+		}
+		
+		for (var i = startY; i <= endY; i++) {
+			$('#year').append('<li data-year="'+i+'">'+i+'('+calendar.toGanZhiYear(i)+')</li>');
+		}
+		
+		for (var i = 1; i <= 12; i++) {
+			$('#month').append('<li data-month="'+i+'">'+calendar.toChinaMonth(i)+'</li>');
+		}
+		
+		for (var i = 1; i <= 30; i++) {
+			$('#day').append('<li data-day="'+i+'">'+calendar.toChinaDay(i)+'</li>');
+		}
+		
+		var myScroll1 = new IScroll('#wrapper1', { mouseWheel: true });
+		var myScroll2 = new IScroll('#wrapper2', { mouseWheel: true });
+		var myScroll3 = new IScroll('#wrapper3', { mouseWheel: true });
+		
+		window.myScroll1 = myScroll1;
+		window.myScroll2 = myScroll2;
+		window.myScroll3 = myScroll3;
+		
+		var currentY = startY;
+		var currentM = 1;
+		var currentD = 1;
+		
+		myScroll1.on('scrollEnd', function() {
+			var y = Math.abs(this.y)
+			var index = Math.round(y / 36);
+			this.scrollTo(0, -index * 36, 500);
+			var thisY = $('#year li').eq(index).attr('data-year');
+			if (currentY == thisY) {
+				return;
+			} else {
+				currentY = thisY;
+				//获取当前年份的闰月
+				var leapM = calendar.leapMonth(currentY);
+				$('.leapM').remove();
+				if (leapM) {
+					$('<li data-month="'+leapM+'+" class="leapM">'+ calendar.toChinaMonth(leapM) +'（润）</li>').insertBefore($('#month li').eq(leapM));
+					if (calendar.leapDays(currentY) === 30) {
+						$('#day li:last').show();
+					} else {
+						$('#day li:last').hide();
+					}
+				} else {
+					if (calendar.monthDays(currentY, currentM) === 30) {
+						$('#day li:last').show();
+					} else {
+						$('#day li:last').hide();
+					}
+				}
+				myScroll2.refresh();
+				myScroll3.refresh();
+				$('#today').text(currentY+' '+currentM+' '+currentD);
+			}
+		});
+		
+		myScroll2.on('scrollEnd', function() {
+			var y = Math.abs(this.y)
+			var index = Math.round(y / 36);
+			this.scrollTo(0, -index * 36, 500);
+			var thisM = $('#month li').eq(index).attr('data-month');
+			if (currentM == thisM) {
+				return;
+			} else {
+				currentM = thisM;
+				var leapM = calendar.leapMonth(currentY);
+				if (leapM == currentM) {
+					if (calendar.leapDays(currentY) === 30) {
+						$('#day li:last').show();
+					} else {
+						$('#day li:last').hide();
+					}
+				} else {
+					if (calendar.monthDays(currentY, currentM) === 30) {
+						$('#day li:last').show();
+					} else {
+						$('#day li:last').hide();
+					}
+				}
+				myScroll3.refresh();
+				$('#today').text(currentY+' '+currentM+' '+currentD);
+			}
+		});
+		
+		myScroll3.on('scrollEnd', function() {
+			var y = Math.abs(this.y)
+			var index = Math.round(y / 36);
+			this.scrollTo(0, -index * 36, 500);
+			var thisD = $('#day li').eq(index).attr('data-day');
+			if (currentD == thisD) {
+				return;
+			} else {
+				currentD = thisD;
+				myScroll3.refresh();
+				$('#today').text(currentY+' '+currentM+' '+currentD);
+			}
+		});
+		
+		document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+	});
+</script>
+</body>
+</html>
